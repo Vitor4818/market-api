@@ -1,10 +1,11 @@
-package personagem;
+package com.api_market.api.Model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import com.api_market.api.DTO.DadosCadastroPersonagem;
 
 @Table(name = "personagens")
 @Entity(name = "personagem")
@@ -13,6 +14,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Personagem {
+
+    public Personagem() {
+    }
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
@@ -26,6 +31,7 @@ public class Personagem {
         this.classe = dados.classe();
         this.nome = dados.nome();
     }
+
 
     public Long getId() {
         return id;

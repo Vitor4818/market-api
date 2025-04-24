@@ -1,4 +1,4 @@
-package personagem;
+package com.api_market.api.Model;
 
 public enum Classe {
     GUERREIRO,
