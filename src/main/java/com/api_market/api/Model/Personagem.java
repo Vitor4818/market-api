@@ -1,5 +1,6 @@
 package com.api_market.api.Model;
 
+import com.api_market.api.DTO.DadosAtualizarPersonagem;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -71,5 +72,20 @@ public class Personagem {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public void atualizarDados(DadosAtualizarPersonagem dados) {
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.classe() != null) {
+            this.classe = dados.classe();
+        }
+        if (dados.nivel() != 0) {
+            this.nivel = dados.nivel();
+        }
+        if (dados.moedas() != 0.0) {
+            this.moedas = dados.moedas();
+        }
     }
 }

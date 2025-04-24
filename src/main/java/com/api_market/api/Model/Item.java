@@ -1,5 +1,6 @@
 package com.api_market.api.Model;
 
+import com.api_market.api.DTO.DadosAtualizarItem;
 import com.api_market.api.DTO.DadosCadstroItem;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -14,6 +15,10 @@ public class Item {
     private Tipo tipo;
     private Raridade raridade;
     private double preco;
+
+    public Item() {
+    }
+
     private int donoId;
 
     public Item(DadosCadstroItem dados) {
@@ -70,5 +75,23 @@ public class Item {
 
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
+    }
+
+    public void atualizarItem(DadosAtualizarItem dados) {
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.tipo() != null) {
+            this.tipo = dados.tipo();
+        }
+        if (dados.raridade() != null) {
+            this.raridade = dados.raridade();
+        }
+        if (dados.preco() != null) {
+            this.preco = dados.preco();
+        }
+        if (dados.donoId() != null) {
+            this.donoId = dados.donoId();
+        }
     }
 }
