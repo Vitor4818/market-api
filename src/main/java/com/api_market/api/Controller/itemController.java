@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -25,34 +27,37 @@ public class itemController {
     private itemRepository repository;
 
     @PostMapping
-    public void cadastrarItem(@RequestBody @Valid DadosCadstroItem dados){
-        repository.save(new Item(dados));
+    public ResponseEntity<Void> cadastrarItem(@RequestBody @Valid DadosCadstroItem dados) {
+        var item = new Item(dados);
+        repository.save(item);
+        return ResponseEntity.created(URI.create("/item/" + item.getId())).build();
     }
 
     @GetMapping
-    public Page<DadosListagemItem> listarItem(Pageable paginacao){
-        return repository.findAll(paginacao).map(DadosListagemItem::new);
+    public ResponseEntity<Page<DadosListagemItem>> listarItem(Pageable paginacao) {
+        var page = repository.findAll(paginacao).map(DadosListagemItem::new);
+        return ResponseEntity.ok(page);
     }
 
     @PutMapping
     @Transactional
-    public void atualizarItem(@RequestBody  DadosAtualizarItem dados){
+    public ResponseEntity<Void> atualizarItem(@RequestBody @Valid DadosAtualizarItem dados) {
         var item = repository.getReferenceById(dados.id());
         item.atualizarItem(dados);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     @Transactional
-    public void excluirItem(@PathVariable Long id){
+    public ResponseEntity<Void> excluirItem(@PathVariable Long id) {
         repository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("buscar")
-    public List<Item> buscarItem(ItemFilter filter){
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Item>> buscarItem(ItemFilter filter) {
         Specification<Item> spec = ItemSpecification.withFilters(filter);
-        return repository.findAll(spec);
+        var itens = repository.findAll(spec);
+        return ResponseEntity.ok(itens);
     }
-
-
-
 }
