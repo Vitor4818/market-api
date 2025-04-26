@@ -4,6 +4,7 @@ import com.api_market.api.DTO.DadosAtualizarPersonagem;
 import com.api_market.api.DTO.PersonagemFilter;
 import com.api_market.api.specification.personagemSpecification;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +28,7 @@ public class personagemController {
 
 @PostMapping
 @Transactional
-    public void cadastrarPersonagem(@RequestBody DadosCadastroPersonagem dados){
+    public void cadastrarPersonagem(@RequestBody @Valid DadosCadastroPersonagem dados){
     repository.save(new Personagem(dados));
 }
 

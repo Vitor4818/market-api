@@ -8,6 +8,7 @@ import com.api_market.api.Model.Item;
 import com.api_market.api.Repository.itemRepository;
 import com.api_market.api.specification.ItemSpecification;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,7 @@ public class itemController {
     private itemRepository repository;
 
     @PostMapping
-    public void cadastrarItem(@RequestBody  DadosCadstroItem dados){
+    public void cadastrarItem(@RequestBody @Valid DadosCadstroItem dados){
         repository.save(new Item(dados));
     }
 
