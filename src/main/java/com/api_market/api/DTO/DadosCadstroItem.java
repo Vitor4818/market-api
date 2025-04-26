@@ -9,9 +9,9 @@ import jakarta.validation.constraints.Positive;
 public record DadosCadstroItem(
         @NotBlank(message = "Campo obrigatório!")
         String nome,
-        @NotBlank(message = "Campo obrigatório!")
+        @NotNull (message = "Campo obrigatório")
         Tipo tipo,
-        @NotBlank(message = "Campo obrigatório!")
+        @NotNull (message = "Campo obrigatório")
         Raridade raridade,
         @NotNull(message = "Campo obrigatório!")
         @Positive(message = "Preço deve ser positivo!")
