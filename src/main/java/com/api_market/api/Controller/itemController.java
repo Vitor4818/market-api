@@ -3,13 +3,18 @@ package com.api_market.api.Controller;
 import com.api_market.api.DTO.DadosAtualizarItem;
 import com.api_market.api.DTO.DadosCadstroItem;
 import com.api_market.api.DTO.DadosListagemItem;
+import com.api_market.api.DTO.ItemFilter;
 import com.api_market.api.Model.Item;
 import com.api_market.api.Repository.itemRepository;
+import com.api_market.api.specification.ItemSpecification;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/item")
@@ -40,5 +45,13 @@ public class itemController {
     public void excluirItem(@PathVariable Long id){
         repository.deleteById(id);
     }
+
+    @GetMapping("buscar")
+    public List<Item> buscarItem(ItemFilter filter){
+        Specification<Item> spec = ItemSpecification.withFilters(filter);
+        return repository.findAll(spec);
+    }
+
+
 
 }
