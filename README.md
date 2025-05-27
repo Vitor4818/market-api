@@ -19,7 +19,7 @@ A API segue boas práticas de desenvolvimento, incluindo paginação, filtros de
 
 ## 🛠️ Tecnologias Utilizadas
 
-- Java 17
+- Java 21
 - Spring Boot
 - Spring Data JPA
 - Hibernate
